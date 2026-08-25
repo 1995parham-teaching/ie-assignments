@@ -43,8 +43,21 @@ jobs:
           key: tectonic-${{ runner.os }}-${{ hashFiles('Tectonic.toml') }}
           restore-keys: tectonic-${{ runner.os }}-
 
+      # tectonic pulls each TeX package from the bundle host on demand, and that
+      # host is flaky from GitHub runners: a failed fetch surfaces as a bogus
+      # "file not found". Whatever a failed attempt did fetch stays in the cache,
+      # so retrying makes progress instead of starting over.
       - name: Build assignments
-        run: tectonic -X build --keep-logs
+        run: |
+          for attempt in 1 2 3; do
+            if tectonic -X build --keep-logs; then
+              exit 0
+            fi
+            echo "::warning::build attempt ${attempt} failed, retrying"
+            sleep $((attempt * 15))
+          done
+          echo "::error::tectonic build failed after 3 attempts"
+          exit 1
 
       - name: Upload PDFs
         uses: actions/upload-artifact@v7
