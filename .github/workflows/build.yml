@@ -1,0 +1,93 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  TECTONIC_VERSION: 0.17.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+
+      # minted shells out to pygmentize for syntax highlighting.
+      - name: Install Pygments
+        run: pip install --disable-pip-version-check Pygments
+
+      - name: Install tectonic
+        run: |
+          curl -fsSL -o tectonic.tar.gz \
+            "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+          tar -xzf tectonic.tar.gz
+          install -m 0755 tectonic /usr/local/bin/tectonic
+          tectonic --version
+
+      # The TeX bundle is ~300MB to resolve; keep it between runs.
+      - name: Cache tectonic bundle
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ runner.os }}-${{ hashFiles('Tectonic.toml') }}
+          restore-keys: tectonic-${{ runner.os }}-
+
+      - name: Build assignments
+        run: tectonic -X build --keep-logs
+
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v7
+        with:
+          name: assignments
+          path: build/**/*.pdf
+          if-no-files-found: error
+
+      - name: Upload build logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-logs
+          path: build/**/*.log
+          if-no-files-found: ignore
+
+  publish:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Download PDFs
+        uses: actions/download-artifact@v7
+        with:
+          name: assignments
+          path: build
+
+      # A rolling "latest" release so students can download the PDFs
+      # without installing a TeX toolchain.
+      - name: Publish to the latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          find build -name '*.pdf' -exec mv {} . \;
+          if ! gh release view latest >/dev/null 2>&1; then
+            gh release create latest \
+              --title "Latest assignments" \
+              --notes "PDFs built from the latest commit on \`main\`." \
+              ./*.pdf
+          else
+            gh release upload latest ./*.pdf --clobber
+          fi
