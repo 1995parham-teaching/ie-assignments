@@ -33,13 +33,63 @@
 
 \renewcommand{\listingscaption}{قطعه‌کد}
 
+% متادیتای سند
+%
+% نام درس و ترم تحصیلی در صفحه عنوان چاپ می‌شوند و می‌توانند در سربرگ هر تمرین
+% تعیین شوند:
+%
+%   \درس{مهندسی اینترنت}
+%   \ترم{پاییز ۱۴۰۵}
+%
+% اگر \ترم مشخص نشود، ترم جاری از روی تاریخ ساخته‌شدن سند حدس زده می‌شود.
+
+% \def به جای \newcommand، تا \ifx با \@empty (که \long نیست) قابل مقایسه باشد.
+\def\ie@course{مهندسی اینترنت}
+\newcommand{\course}[1]{\def\ie@course{#1}}
+\eqcommand{درس}{course}
+
+\def\ie@semester{}
+\newcommand{\semester}[1]{\def\ie@semester{#1}}
+\eqcommand{ترم}{semester}
+
+% حدس ترم تحصیلی از روی ماه شمسی:
+%   مهر تا دی (۷--۱۰)      پاییز
+%   بهمن تا خرداد (۱۱--۳)  بهار
+%   تیر تا شهریور (۴--۶)   تابستان
+% بهمن و اسفند به سال تحصیلی بعد تعلق دارند.
+\newcount\ie@termyear
+\newcommand{\ie@autosemester}{%
+  \ie@termyear=\persianyear\relax
+  \ifnum\persianmonth>10\relax
+    \advance\ie@termyear by 1\relax
+    بهار%
+  \else
+    \ifnum\persianmonth>6\relax
+      پاییز%
+    \else
+      \ifnum\persianmonth>3\relax
+        تابستان%
+      \else
+        بهار%
+      \fi
+    \fi
+  \fi
+  \ \the\ie@termyear
+}
+
 \renewcommand{\maketitle}{%
   \begin{center}
   \textit{بسمه تعالی}
   \vfill
   {\huge تمرین \@title}\\[0.5cm]
-  {\large مهندسی اینترنت}\\[0.5cm]
-  {پاییز ۱۴۰۱}
+  {\large \ie@course}\\[0.5cm]
+  {\ifx\ie@semester\@empty
+     \ClassWarning{assignment}{No semester set; guessing it from the build
+       date. Set it explicitly with \string\ترم}%
+     \ie@autosemester
+   \else
+     \ie@semester
+   \fi}
   \vfill
   \end{center}
   \newpage
@@ -53,15 +103,18 @@
   \end{center}
 }
 
+% وزیرمتن قلم فارسی ندارد، بنابراین حالت مورب آن به صورت مصنوعی ساخته می‌شود.
 \settextfont[
   Path = ../fonts/,
+  Extension = .ttf,
   UprightFont = *-Regular,
   BoldFont = *-Bold,
-  ItalicFont = *-Variable
-]{Vazir}
+  AutoFakeSlant = 0.15
+]{Vazirmatn}
 
 \setlatintextfont[
   Path = ../fonts/,
+  Extension = .ttf,
   UprightFont = *-Regular,
   BoldFont = *-Bold,
   ItalicFont = *-Italic
