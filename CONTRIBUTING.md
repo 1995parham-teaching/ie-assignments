@@ -1,0 +1,134 @@
+# Contributing
+
+This repository holds the assignments and projects of the **Internet Engineering**
+course. Teaching assistants author assignments here; students receive the built
+PDFs. Please read this document before your first assignment.
+
+## Prerequisites
+
+- [tectonic](https://github.com/tectonic-typesetting/tectonic) — the only TeX
+  toolchain you need; it downloads the packages it needs on first run.
+- [Pygments](https://pygments.org) (`pip install Pygments`) — `minted` shells out
+  to `pygmentize` for code listings, so builds fail without it.
+
+No system TeX Live installation is required, and the fonts live in `fonts/`.
+
+## Building
+
+```bash
+tectonic -X build
+```
+
+Every assignment is written to `build/<assignment-name>/<assignment-name>.pdf`.
+Add `--keep-logs` when you need to inspect a failing build.
+
+CI runs exactly this command on every pull request, and publishes the PDFs of
+`main` to the [`latest` release](../../releases/tag/latest).
+
+## Adding a new assignment
+
+1. Create `src/<assignment-name>/main.tex`. Use kebab-case, and name the
+   directory after the topic, not the semester — for example
+   `backend-http-monitor`, not `project-2-fall-1405`.
+
+2. Start from this template:
+
+   ```latex
+   \documentclass{../assignment}
+
+   \عنوان{یک عنوان خوب}
+   \ترم{پاییز ۱۴۰۵}
+
+   \begin{document}
+
+   \عنوان‌ساز
+
+   \فهرست‌مطالب
+
+   \قسمت{مقدمه}
+
+   ...
+
+   \پایان‌ساز
+
+   \end{document}
+   ```
+
+3. Register the output in `Tectonic.toml`:
+
+   ```toml
+   [[output]]
+   name = "<assignment-name>"
+   type = "pdf"
+   shell_escape = true
+   preamble = ""
+   index = "<assignment-name>/main.tex"
+   postamble = ""
+   ```
+
+4. Build locally, check the PDF, and open a pull request.
+
+### Document metadata
+
+| Macro | Required | Meaning |
+| --- | --- | --- |
+| `\عنوان{}` | yes | Assignment title, printed after «تمرین» on the cover |
+| `\ترم{}` | yes in practice | Academic term, e.g. `پاییز ۱۴۰۵` |
+| `\درس{}` | no | Course name; defaults to «مهندسی اینترنت» |
+
+`\ترم` is optional only in the sense that the class guesses the current term
+from the build date and emits a warning. **Always set it explicitly** — otherwise
+the cover page changes meaning depending on when someone rebuilds the PDF.
+
+### Common macros
+
+The class loads [XePersian](https://ctan.org/pkg/xepersian) with `localise`, so
+the usual sectioning commands have Persian names:
+
+| Macro | Purpose |
+| --- | --- |
+| `\قسمت{}` / `\زیرقسمت{}` | section / subsection |
+| `\شروع{شمارش}` … `\فقره` … `\پایان{شمارش}` | numbered list |
+| `\شروع{فقرات}` … `\فقره` … `\پایان{فقرات}` | bulleted list |
+| `\متن‌لاتین{}` | inline Latin text (use it for every English word) |
+| `\متن‌سیاه{}` | bold emphasis |
+| `\تارنما{url}{text}` | hyperlink |
+| `\پانویس{}` | footnote |
+| `\شرح{}` / `\برچسب{}` / `\رجوع{}` | caption / label / reference |
+
+Code listings are `minted` inside a `latin` environment:
+
+```latex
+\begin{listing}
+
+\شرح{نمونه‌ای از یک تابع}
+\برچسب{قطعه‌کد: نمونه‌ای از یک تابع}
+
+\begin{latin}
+\begin{minted}[bgcolor=Black]{go}
+func main() {}
+\end{minted}
+\end{latin}
+
+\end{listing}
+```
+
+## Pull requests
+
+- Branch off `main`; do not push to `main` directly.
+- One assignment per pull request, so it can be reviewed and reverted on its own.
+- CI must be green. A build failure on a pull request means the PDF cannot be
+  produced — it is never "just a warning".
+- The course instructor reviews and merges.
+- Write commit messages in the [Conventional Commits](https://www.conventionalcommits.org)
+  style already used in the history, e.g. `feat: add websocket assignment`.
+
+## What does not belong here
+
+This repository is **public**. Do not commit:
+
+- solutions, answer keys, or grading rubrics,
+- student submissions, names, or grades,
+- exam material that has not been handed out yet.
+
+Keep those in the private course repository.
