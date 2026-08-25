@@ -1,39 +1,24 @@
 \ProvidesClass{assignment}
-              [Parham Alvani's theme for IE assignments]
-
-\RequirePackage[dvipsnames]{xcolor}
-\RequirePackage{enumerate}
-\RequirePackage{minted}
+              [2026/08/25 Internet Engineering assignments]
 
 \LoadClass[]{article}
 
 \RequirePackage[
-  colorlinks=true,
-  linkcolor=black,
-  urlcolor=orange,
-]{hyperref}
-\RequirePackage[
-   a4paper,
-   left=2.5cm,
-   right=2.5cm,
-   top=2.5cm,
-   bottom=2.5cm
+  a4paper,
+  left=2.5cm,
+  right=2.5cm,
+  top=2.7cm,
+  bottom=2.5cm,
+  headsep=0.7cm
 ]{geometry}
-% The Persian command aliases (\قسمت, \فقره, \متن‌لاتین, ...) come from this
-% option. It was spelled [localise] before TeX Live 2023 and is [localize] now.
-\RequirePackage[localize]{xepersian}
 
-\usemintedstyle{one-dark}
-
-\setlength{\parindent}{0pt}
-\renewcommand{\baselinestretch}{1.5}
-
-\eqcommand{تارنما}{href}
-\eqcommand{پایان‌ساز}{makefooter}
+% Everything that is not the cover page of an assignment lives in
+% teaching-base, kept in the latex-templates repository and pulled in here as
+% a git subtree: the palette, the fonts, the sectioning, the listings, the
+% callout boxes, the marks and the answer blocks.
+\RequirePackage[latin=Neuton]{teaching-base}
 
 \date{\persiantoday}
-
-\renewcommand{\listingscaption}{قطعه‌کد}
 
 % متادیتای سند
 %
@@ -79,50 +64,63 @@
   \ \the\ie@termyear
 }
 
-% xepersian installs its own \maketitle for the document class, and it does
-% so after this class is read, so the cover page has to be (re)defined once
-% every package has had its say.
+% مهلت تحویل تمرین، در صورت تعیین شدن، در صفحه عنوان می‌آید:
+%
+%   \مهلت{۳۰ آبان ۱۴۰۵}
+\def\ie@deadline{}
+\newcommand{\deadline}[1]{\def\ie@deadline{#1}}
+\eqcommand{مهلت}{deadline}
+
+% xepersian installs its own \maketitle for the document class after this class
+% is read, so the cover page is defined once every package has been loaded.
 \AtBeginDocument{%
+  \runninghead{\ie@course}%
+  \runningfoot{تمرین \@title}%
   \renewcommand{\maketitle}{%
+    \thispagestyle{plain}
     \begin{center}
-    \textit{بسمه تعالی}
-    \vfill
-    {\huge تمرین \@title}\\[0.5cm]
-    {\large \ie@course}\\[0.5cm]
-    {\ifx\ie@semester\@empty
-       \ClassWarning{assignment}{No semester set; guessing it from the build
-         date. Set it explicitly with \string\ترم}%
-       \ie@autosemester
-     \else
-       \ie@semester
-     \fi}
-    \vfill
+      \vspace*{0.5cm}
+
+      \textit{بسمه تعالی}
+
+      \vspace{1.2cm}
+
+      \textcolor{tbaccentline}{\rule{0.35\linewidth}{1pt}}
+
+      \vspace{0.6cm}
+
+      {\Huge\bfseries\textcolor{tbaccent}{تمرین \@title}}
+
+      \vspace{0.35cm}
+
+      \textcolor{tbaccentline}{\rule{0.35\linewidth}{1pt}}
+
+      \vspace{0.9cm}
+
+      {\Large \ie@course}
+
+      \vspace{0.4cm}
+
+      {\large
+        \ifx\ie@semester\@empty
+          \ClassWarning{assignment}{No semester set; guessing it from the build
+            date. Set it explicitly with \string\ترم}%
+          \ie@autosemester
+        \else
+          \ie@semester
+        \fi
+      }
+
+      \ifx\ie@deadline\@empty\else
+        \vspace{0.9cm}
+        \setlength{\fboxsep}{6pt}%
+        \colorbox{tbaccentsoft}{\color{tbaccent}\textbf{\strut مهلت تحویل: \ie@deadline}}%
+      \fi
+
+      \vfill
     \end{center}
     \newpage
-  }
+  }%
 }
 
-\newcommand{\makefooter}{%
-  \vfill
-  \begin{center}
-    این سند برپایه بسته \متن‌لاتین{\زی‌پرشین} گونه \متن‌لاتین{\گونه‌زی‌پرشین} توسعه پیدا کرده است.
-    نگارش شده به تاریخ \@date
-  \end{center}
-}
-
-% وزیرمتن قلم فارسی ندارد، بنابراین حالت مورب آن به صورت مصنوعی ساخته می‌شود.
-\settextfont[
-  Path = ../fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular,
-  BoldFont = *-Bold,
-  AutoFakeSlant = 0.15
-]{Vazirmatn}
-
-\setlatintextfont[
-  Path = ../fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular,
-  BoldFont = *-Bold,
-  ItalicFont = *-Italic
-]{Neuton}
+\endinput

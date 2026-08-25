@@ -81,6 +81,7 @@ the PDFs of `main` to the [`latest` release](../../releases/tag/latest).
 | --- | --- | --- |
 | `\عنوان{}` | yes | Assignment title, printed after «تمرین» on the cover |
 | `\ترم{}` | yes in practice | Academic term, e.g. `پاییز ۱۴۰۵` |
+| `\مهلت{}` | recommended | Submission deadline, printed on the cover |
 | `\درس{}` | no | Course name; defaults to «مهندسی اینترنت» |
 
 `\ترم` is optional only in the sense that the class guesses the current term
@@ -102,6 +103,10 @@ the usual sectioning commands have Persian names:
 | `\تارنما{url}{text}` | hyperlink |
 | `\پانویس{}` | footnote |
 | `\شرح{}` / `\برچسب{}` / `\رجوع{}` | caption / label / reference |
+| `\نمره{۲}` | the marks a part is worth, as a badge |
+| `\شروع{نکته}` … `\پایان{نکته}` | a note callout |
+| `\شروع{راهنمایی}` … `\پایان{راهنمایی}` | a hint callout |
+| `\شروع{امتیازی}` … `\پایان{امتیازی}` | a bonus callout |
 
 Code listings are `minted` inside a `latin` environment:
 

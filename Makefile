@@ -5,9 +5,10 @@
 # the class as ../assignment and the class refers to the fonts as ../fonts/;
 # both are resolved relative to that directory.
 
-# TeX Live ships its own assignment.cls. TEXINPUTS puts the repository root
-# ahead of the TeX tree so that this one is always the class that gets loaded.
-TEXINPUTS_ROOT := ..:
+# TeX Live ships its own assignment.cls. TEXINPUTS puts the repository root and
+# the shared latex/ subtree ahead of the TeX tree, so that this class and
+# teaching-base.sty are the ones that get loaded.
+TEXINPUTS_ROOT := ..:../latex:
 
 LATEXMK ?= latexmk
 LATEXMKFLAGS ?= -xelatex -shell-escape -halt-on-error -interaction=nonstopmode
@@ -18,7 +19,7 @@ PDFS := $(patsubst %,build/%.pdf,$(ASSIGNMENTS))
 .PHONY: all
 all: $(PDFS)
 
-build/%.pdf: src/%/main.tex assignment.cls $(wildcard fonts/*.ttf)
+build/%.pdf: src/%/main.tex assignment.cls $(wildcard latex/*.sty) $(wildcard latex/fonts/*.ttf)
 	@mkdir -p build
 	cd src && TEXINPUTS=$(TEXINPUTS_ROOT) $(LATEXMK) $(LATEXMKFLAGS) -jobname=$* -outdir=../build $*/main.tex
 

@@ -70,6 +70,19 @@ Each assignment is written to `build/<assignment-name>.pdf`.
 
 ## Writing an assignment
 
+The shared look — palette, fonts, sectioning, listings, callout boxes, marks —
+comes from
+[latex-templates](https://github.com/1995parham-teaching/latex-templates),
+pulled in under `latex/` as a git subtree. `assignment.cls` adds only the cover
+page. To pick up a later version of it:
+
+```bash
+git subtree pull --prefix latex \
+  git@github.com:1995parham-teaching/latex-templates.git main --squash
+```
+
+## Writing an assignment
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the template, the Persian macros, and
 the pull request workflow. The short version:
 
@@ -78,6 +91,7 @@ the pull request workflow. The short version:
 
 \عنوان{یک عنوان خوب}
 \ترم{پاییز ۱۴۰۵}
+\مهلت{۳۰ آبان ۱۴۰۵}
 
 \begin{document}
 
