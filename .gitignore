@@ -277,3 +277,6 @@ TSWLatexianTemp*
 
 ## build outputs
 build/
+
+## minted writes its cache next to the sources
+src/_minted-*

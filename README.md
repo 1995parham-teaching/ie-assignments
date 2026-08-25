@@ -28,21 +28,45 @@ Built PDFs for the current `main` are attached to the
 
 ## How to build?
 
-Install [tectonic](https://github.com/tectonic-typesetting/tectonic) and
-[Pygments](https://pygments.org) (`minted` needs `pygmentize` for code
-listings), then:
+The assignments are built with [TeX Live](https://tug.org/texlive/) (XeLaTeX,
+driven by `latexmk`) and [Pygments](https://pygments.org), which `minted` shells
+out to for code listings.
+
+### With a local TeX Live
+
+| Platform | Install |
+| --- | --- |
+| macOS | `brew install --cask mactex-no-gui` (or [MacTeX](https://tug.org/mactex/)) |
+| Debian/Ubuntu | `apt install texlive-full latexmk python3-pygments` |
+| Arch | `pacman -S texlive texlive-langarabic texlive-latexextra python-pygments` |
+| Any | [`install-tl`](https://tug.org/texlive/acquire-netinstall.html) with `scheme-full` |
+
+**TeX Live 2023 or newer is required.** The class asks `xepersian` for its
+Persian command aliases with the `localize` option, which was spelled
+`localise` up to TeX Live 2022.
+
+A minimal installation is not enough: the class needs `xepersian`, `minted`,
+`fvextra`, `geometry`, `hyperref` and `xcolor`. `scheme-full` is the path of
+least resistance; with a smaller scheme, install them with
+`tlmgr install xepersian minted fvextra`.
+
+Then:
 
 ```bash
-tectonic -X build
+make            # build every assignment into build/
+make list       # list the assignments
+make clean      # remove build artefacts
 ```
 
-All assignments are built into the `build` directory.
+### With Docker
 
-`Tectonic.toml` pins the TeX bundle to `tlextras-2022.0r0` so that a build today
-produces the same PDF as a build in three years. It is the newest bundle
-published on `data1.fullyjustified.net`, and it is newer than the default bundle
-tectonic ships with — do not "upgrade" it without checking that a newer one
-actually exists.
+No local TeX Live needed — this is also exactly what CI runs:
+
+```bash
+docker run --rm -v "$PWD":/work -w /work texlive/texlive:latest make
+```
+
+Each assignment is written to `build/<assignment-name>.pdf`.
 
 ## Writing an assignment
 
@@ -66,14 +90,5 @@ the pull request workflow. The short version:
 \end{document}
 ```
 
-in `src/<assignment-name>/main.tex`, plus a matching output in `Tectonic.toml`:
-
-```toml
-[[output]]
-name = "<assignment-name>"
-type = "pdf"
-shell_escape = true
-preamble = ""
-index = "<assignment-name>/main.tex"
-postamble = ""
-```
+in `src/<assignment-name>/main.tex`. The `Makefile` discovers it
+automatically — there is no build manifest to update.

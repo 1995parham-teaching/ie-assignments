@@ -19,7 +19,9 @@
    top=2.5cm,
    bottom=2.5cm
 ]{geometry}
-\RequirePackage[localise]{xepersian}
+% The Persian command aliases (\قسمت, \فقره, \متن‌لاتین, ...) come from this
+% option. It was spelled [localise] before TeX Live 2023 and is [localize] now.
+\RequirePackage[localize]{xepersian}
 
 \usemintedstyle{one-dark}
 
@@ -77,22 +79,27 @@
   \ \the\ie@termyear
 }
 
-\renewcommand{\maketitle}{%
-  \begin{center}
-  \textit{بسمه تعالی}
-  \vfill
-  {\huge تمرین \@title}\\[0.5cm]
-  {\large \ie@course}\\[0.5cm]
-  {\ifx\ie@semester\@empty
-     \ClassWarning{assignment}{No semester set; guessing it from the build
-       date. Set it explicitly with \string\ترم}%
-     \ie@autosemester
-   \else
-     \ie@semester
-   \fi}
-  \vfill
-  \end{center}
-  \newpage
+% xepersian installs its own \maketitle for the document class, and it does
+% so after this class is read, so the cover page has to be (re)defined once
+% every package has had its say.
+\AtBeginDocument{%
+  \renewcommand{\maketitle}{%
+    \begin{center}
+    \textit{بسمه تعالی}
+    \vfill
+    {\huge تمرین \@title}\\[0.5cm]
+    {\large \ie@course}\\[0.5cm]
+    {\ifx\ie@semester\@empty
+       \ClassWarning{assignment}{No semester set; guessing it from the build
+         date. Set it explicitly with \string\ترم}%
+       \ie@autosemester
+     \else
+       \ie@semester
+     \fi}
+    \vfill
+    \end{center}
+    \newpage
+  }
 }
 
 \newcommand{\makefooter}{%

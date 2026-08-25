@@ -6,24 +6,41 @@ PDFs. Please read this document before your first assignment.
 
 ## Prerequisites
 
-- [tectonic](https://github.com/tectonic-typesetting/tectonic) — the only TeX
-  toolchain you need; it downloads the packages it needs on first run.
-- [Pygments](https://pygments.org) (`pip install Pygments`) — `minted` shells out
-  to `pygmentize` for code listings, so builds fail without it.
+- **TeX Live** with XeLaTeX and `latexmk`. `scheme-full` is the least painful
+  option; with a smaller scheme you need at least `xepersian`, `minted` and
+  `fvextra` (`tlmgr install xepersian minted fvextra`).
+- **[Pygments](https://pygments.org)** (`pip install Pygments`) — `minted`
+  shells out to `pygmentize`, so builds fail without it.
 
-No system TeX Live installation is required, and the fonts live in `fonts/`.
+If you would rather not install a TeX distribution, use the same image CI uses:
+
+```bash
+docker run --rm -v "$PWD":/work -w /work texlive/texlive:latest make
+```
+
+The fonts live in `fonts/` and are picked up automatically; do not install them
+system-wide.
 
 ## Building
 
 ```bash
-tectonic -X build
+make            # every assignment
+make list       # what is in the repository
+make clean      # remove build artefacts
 ```
 
-Every assignment is written to `build/<assignment-name>/<assignment-name>.pdf`.
-Add `--keep-logs` when you need to inspect a failing build.
+Each assignment is written to `build/<assignment-name>.pdf`. `latexmk` runs from
+`src/`, which is why assignments refer to the class as `../assignment` and the
+class refers to the fonts as `../fonts/`. Keep those paths as they are.
 
-CI runs exactly this command on every pull request, and publishes the PDFs of
-`main` to the [`latest` release](../../releases/tag/latest).
+To build a single assignment while you iterate:
+
+```bash
+make build/http.pdf
+```
+
+CI runs `make` on every pull request in the TeX Live container, and publishes
+the PDFs of `main` to the [`latest` release](../../releases/tag/latest).
 
 ## Adding a new assignment
 
@@ -54,19 +71,9 @@ CI runs exactly this command on every pull request, and publishes the PDFs of
    \end{document}
    ```
 
-3. Register the output in `Tectonic.toml`:
-
-   ```toml
-   [[output]]
-   name = "<assignment-name>"
-   type = "pdf"
-   shell_escape = true
-   preamble = ""
-   index = "<assignment-name>/main.tex"
-   postamble = ""
-   ```
-
-4. Build locally, check the PDF, and open a pull request.
+3. Build locally with `make`, check the PDF, and open a pull request. The
+   `Makefile` discovers `src/*/main.tex` on its own — there is no build
+   manifest to keep in sync.
 
 ### Document metadata
 
