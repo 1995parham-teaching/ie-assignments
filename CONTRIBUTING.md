@@ -82,6 +82,7 @@ the PDFs of `main` to the [`latest` release](../../releases/tag/latest).
 | `\عنوان{}` | yes | Assignment title, printed after «تمرین» on the cover |
 | `\ترم{}` | yes in practice | Academic term, e.g. `پاییز ۱۴۰۵` |
 | `\مهلت{}` | recommended | Submission deadline, printed on the cover |
+| `\تحویل{}` | no | Where the work is handed in; defaults to the course GitHub repository |
 | `\درس{}` | no | Course name; defaults to «مهندسی اینترنت» |
 
 `\ترم` is optional only in the sense that the class guesses the current term
@@ -124,6 +125,14 @@ func main() {}
 
 \end{listing}
 ```
+
+### Policies
+
+Close every assignment with `\قوانین`, right before `\پایان‌ساز`. It prints the
+course-wide rules — where to hand in, the late policy, what counts as your own
+work, what is allowed with AI tools, and what grading looks at — from one place,
+so they cannot drift apart between assignments. The wording lives in
+`assignment.cls`; change it there and every assignment follows.
 
 ## Pull requests
 
