@@ -21,6 +21,14 @@ Assignments currently in this repository:
 Frontend assignments (HTML, CSS, JavaScript) were given in some semesters but
 are not part of this repository.
 
+## Teaching assistants
+
+**Fall 2026 (پاییز ۱۴۰۵)**
+
+- Amirhossein Motaghian
+- Mohammad Hossein Shahbazi ([@mohammad8186](https://github.com/mohammad8186))
+- Sina Karimi
+
 ## Reading the assignments
 
 Built PDFs for the current `main` are attached to the
