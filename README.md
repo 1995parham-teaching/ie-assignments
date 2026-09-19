@@ -25,9 +25,11 @@ are not part of this repository.
 
 **Fall 2026 (پاییز ۱۴۰۵)**
 
-- Amirhossein Motaghian
+- Amirhossein Motaghian ([@amirhossein2831](https://github.com/amirhossein2831))
 - Mohammad Hossein Shahbazi ([@mohammad8186](https://github.com/mohammad8186))
-- Sina Karimi
+- Sina Karimi ([@lazyboy81](https://github.com/lazyboy81))
+
+What the team is working on this term, and the state each assignment is in, is in [PLAN.md](PLAN.md).
 
 ## Reading the assignments
 
@@ -76,7 +78,7 @@ docker run --rm -v "$PWD":/work -w /work texlive/texlive:latest make
 
 Each assignment is written to `build/<assignment-name>.pdf`.
 
-## Writing an assignment
+## The shared look
 
 The shared look — palette, fonts, sectioning, listings, callout boxes, marks —
 comes from
