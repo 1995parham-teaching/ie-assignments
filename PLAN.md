@@ -4,13 +4,15 @@ What the assistant team is expected to produce this term, and what state each as
 
 ## Team
 
-| Assistant | GitHub | Joined |
-| --- | --- | --- |
-| Amirhossein Motaghian | [@amirhossein2831](https://github.com/amirhossein2831) | Fall 2026 |
-| Mohammad Hossein Shahbazi | [@mohammad8186](https://github.com/mohammad8186) | Fall 2026 |
-| Sina Karimi | [@lazyboy81](https://github.com/lazyboy81) | Fall 2026 |
+| Assistant | GitHub | Role | Joined |
+| --- | --- | --- | --- |
+| Amirhossein Motaghian | [@amirhossein2831](https://github.com/amirhossein2831) | Coordinator | Fall 2026 |
+| Mohammad Hossein Shahbazi | [@mohammad8186](https://github.com/mohammad8186) | Assistant | Fall 2026 |
+| Sina Karimi | [@lazyboy81](https://github.com/lazyboy81) | Assistant | Fall 2026 |
 
-Amirhossein also assists on [is-assignment](https://github.com/1995parham-teaching/is-assignment).
+Amirhossein also assists on [is-assignment](https://github.com/1995parham-teaching/is-assignment), which makes him the link between the two courses.
+
+**The coordinator is the team's point of contact**, not a second instructor. They watch the open issues, chase an assignment that has been sitting, and bring a decision to the instructor rather than waiting for it to be noticed. Review and merge stay with the instructor, and so does anything that changes what a student is asked to do. Roza Ganjipour holds the same role on [is-assignment](https://github.com/1995parham-teaching/is-assignment).
 
 ## What is in the repository
 
