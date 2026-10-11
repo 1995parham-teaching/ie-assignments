@@ -20,7 +20,7 @@ Homework is 30% of the course mark and the deadlines are not extended, so an ass
 
 | Assignment | Follows lecture | State | Proposed owner |
 | --- | --- | --- | --- |
-| [`git`](src/git) | Git fundamentals | Written, pending instructor review; deadline ۲۸ مهر ۱۴۰۵ | All teaching assistants |
+| [`git`](src/git) | Git fundamentals | Written, pending instructor review; deadline ۲۶ مهر ۱۴۰۵ | All teaching assistants |
 | [`http`](src/http) | 2 — HTTP | Written, needs a term and a deadline | Sina Karimi |
 | [`http-hands-on`](src/http-hands-on) | 2 — HTTP | Written, needs a term and a deadline | Sina Karimi |
 | [`backend-morpheus`](src/backend-morpheus) | 7 — Go Programming | Written, needs a term and a deadline | Amirhossein Motaghian |
@@ -30,7 +30,7 @@ Owners are a proposal from the instructor, not an assignment of blame — swap t
 
 ## Before anything is handed out
 
-The four assignments inherited from earlier runs of the course still carry old terms on their cover pages. The new [`git`](src/git) assignment sets `پاییز ۱۴۰۵` and a deadline of `۲۸ مهر ۱۴۰۵`; all teaching assistants share ownership. It contains six written questions worth 20 points, covering Git concepts and scenarios, and sets `\نوشتاری` so its policies speak of answers rather than code.
+The four assignments inherited from earlier runs of the course still carry old terms on their cover pages. The new [`git`](src/git) assignment sets `پاییز ۱۴۰۵` and a deadline of `۲۶ مهر ۱۴۰۵`; all teaching assistants share ownership. It contains six written questions worth 20 points, covering Git concepts and scenarios, and sets `\نوشتاری` so its policies speak of answers rather than code.
 
 - **All four carry a stale `\ترم`** — `پاییز ۱۴۰۱` or `بهار ۱۴۰۱`, which is Fall 2022 and Spring 2022. They must all read `پاییز ۱۴۰۵` before a student sees them.
 - **None of them sets `\مهلت`**, so no cover page states a deadline. The instructor sets the dates; the owner puts them in the source.
