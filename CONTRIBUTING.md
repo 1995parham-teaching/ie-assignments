@@ -85,6 +85,7 @@ the PDFs of `main` to the [`latest` release](../../releases/tag/latest).
 | `\تحویل{}` | no | Where the work is handed in; defaults to the course GitHub repository |
 | `\درس{}` | no | Course name; defaults to «مهندسی اینترنت» |
 | `\نوشتاری` | no | Written-only assignment: the policies speak of answers instead of code |
+| `\تله‌هوش‌مصنوعی[text]` | no | Prints an invisible white line after the policies asking an AI tool to state its model and parameter count; off unless set, `[text]` replaces the default sentence |
 
 `\ترم` is optional only in the sense that the class guesses the current term
 from the build date and emits a warning. **Always set it explicitly** — otherwise
