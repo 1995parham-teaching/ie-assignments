@@ -13,6 +13,7 @@ Assignments currently in this repository:
 
 | Assignment | Topic |
 | --- | --- |
+| [`git`](src/git) | Git theory and scenarios: history, staging, conflicts, and undoing changes |
 | [`http`](src/http) | HTTP theory: versions, statefulness, client/server limits |
 | [`http-hands-on`](src/http-hands-on) | Hands-on: a JWT authentication reverse proxy |
 | [`backend-morpheus`](src/backend-morpheus) | Go backend: CRUD, a database, and a secondary ReST API |
