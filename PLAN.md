@@ -30,7 +30,7 @@ Owners are a proposal from the instructor, not an assignment of blame — swap t
 
 ## Before anything is handed out
 
-The four assignments inherited from earlier runs of the course still carry old terms on their cover pages. The new [`git`](src/git) assignment sets `پاییز ۱۴۰۵` and a deadline of `۲۸ مهر ۱۴۰۵`; all teaching assistants share ownership. It contains six written questions worth 20 points, covering Git concepts and scenarios, with a one-week timeframe.
+The four assignments inherited from earlier runs of the course still carry old terms on their cover pages. The new [`git`](src/git) assignment sets `پاییز ۱۴۰۵` and a deadline of `۲۸ مهر ۱۴۰۵`; all teaching assistants share ownership. It contains six written questions worth 20 points, covering Git concepts and scenarios, and sets `\نوشتاری` so its policies speak of answers rather than code.
 
 - **All four carry a stale `\ترم`** — `پاییز ۱۴۰۱` or `بهار ۱۴۰۱`, which is Fall 2022 and Spring 2022. They must all read `پاییز ۱۴۰۵` before a student sees them.
 - **None of them sets `\مهلت`**, so no cover page states a deadline. The instructor sets the dates; the owner puts them in the source.
