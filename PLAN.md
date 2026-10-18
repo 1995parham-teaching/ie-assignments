@@ -20,9 +20,9 @@ Homework is 30% of the course mark and the deadlines are not extended, so an ass
 
 | Assignment | Follows lecture | State | Proposed owner |
 | --- | --- | --- | --- |
-| [`git`](src/git) | Git fundamentals | Written, pending instructor review; deadline ۲۶ مهر ۱۴۰۵ | All teaching assistants |
-| [`http`](src/http) | 2 — HTTP | Written, needs a term and a deadline | Sina Karimi |
-| [`http-hands-on`](src/http-hands-on) | 2 — HTTP | Written, needs a term and a deadline | Sina Karimi |
+| [`git`](src/git) | Git fundamentals | Handed out 11 Oct 2026; deadline ۲۶ مهر ۱۴۰۵ | All teaching assistants |
+| [`http`](src/http) | 2 — HTTP | Opens 19 Oct 2026; deadline ۴ آبان ۱۴۰۵; 20 marks; needs the fixes on #7 | Sina Karimi |
+| [`http-hands-on`](src/http-hands-on) | 2 — HTTP | Opens 19 Oct 2026; deadline ۱۱ آبان ۱۴۰۵; 20 marks; needs the fixes on #8 | Sina Karimi |
 | [`backend-morpheus`](src/backend-morpheus) | 7 — Go Programming | Written, needs a term and a deadline | Amirhossein Motaghian |
 | [`backend-http-monitor`](src/backend-http-monitor) | 7 — Go Programming | Written, needs a term and a deadline | Mohammad Hossein Shahbazi |
 
